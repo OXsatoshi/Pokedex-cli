@@ -1,0 +1,13 @@
+
+> pokedex-cli@1.0.0 dev
+> npx tsc && node dist/main.js
+
+Pokedex > 
+
+Welcome to the Pokedex!
+Usage:
+
+help: Displays a help message
+exit: Exits the pokedex
+
+Pokedex > 
