@@ -11,7 +11,7 @@ describe.each([
     },
     {
         input: "",
-        expected: ["run", "or", "that"],
+        expected: [],
     },
     {
         input: "      ",

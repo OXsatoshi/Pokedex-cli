@@ -1,8 +1,8 @@
 export async function commandMap(state) {
     try {
         let res = await state.pokeapi.fetchLocations(state.nextLocationsURL);
-        state.prevLocationsURL = state.nextLocationsURL;
         state.nextLocationsURL = res.next;
+        state.prevLocationsURL = res.previous;
         for (const key of res.results) {
             console.log(key.name);
         }

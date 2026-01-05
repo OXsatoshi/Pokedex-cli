@@ -19,7 +19,7 @@ export async function startREPL(state) {
         else {
             let command = searchForCommand(userInput[0]);
             if (command !== "Unknown command") {
-                await listOfCommand[command].callback(state);
+                await listOfCommand[command].callback(state, userInput[1]);
             }
             else {
                 console.log("Unknown command");

@@ -13,6 +13,6 @@ export function initState() {
         registry: listOfCommand,
         pokeapi: new PokeAPI(),
         prevLocationsURL: null,
-        nextLocationsURL: "https://pokeapi.co/api/v2/location/",
+        nextLocationsURL: "https://pokeapi.co/api/v2/location-area",
     };
 }
