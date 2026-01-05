@@ -1,5 +1,6 @@
 import { createInterface } from "node:readline";
-import { getCommands, CLICommand } from "./CLICommand.js";
+import { getCommands } from "./CLICommand.js";
+import type { State } from "./state.js";
 import { helpCommand } from "./command_help.js";
 import { commandExit } from "./command_exit.js";
 //The purpose of this function is to split user input
@@ -13,22 +14,18 @@ export function cleanInput(input: string): string[] {
   return result;
 }
 
-export function startREPL(): void {
-  const rl = createInterface({
-    input: process.stdin,
-    output: process.stdout,
-    prompt: "Pokedex > ",
-  });
+export async function startREPL(state: State): Promise<void> {
+  const rl = state.rl;
 
   rl.prompt();
-  rl.on("line", (input) => {
+  rl.on("line", async (input) => {
     let userInput = cleanInput(input);
     if (userInput.length === 0) {
       rl.prompt();
     } else {
       let command = searchForCommand(userInput[0]);
       if (command !== "Unknown command") {
-        listOfCommand[command].callback(listOfCommand);
+        await listOfCommand[command].callback(state);
       } else {
         console.log("Unknown command");
       }

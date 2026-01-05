@@ -1,4 +1,3 @@
-import { createInterface } from "node:readline";
 import { getCommands } from "./CLICommand.js";
 //The purpose of this function is to split user input
 //base on whitespaces
@@ -9,14 +8,10 @@ export function cleanInput(input) {
     result = result.filter((item) => item !== "");
     return result;
 }
-export function startREPL() {
-    const rl = createInterface({
-        input: process.stdin,
-        output: process.stdout,
-        prompt: "Pokedex > ",
-    });
+export async function startREPL(state) {
+    const rl = state.rl;
     rl.prompt();
-    rl.on("line", (input) => {
+    rl.on("line", async (input) => {
         let userInput = cleanInput(input);
         if (userInput.length === 0) {
             rl.prompt();
@@ -24,7 +19,7 @@ export function startREPL() {
         else {
             let command = searchForCommand(userInput[0]);
             if (command !== "Unknown command") {
-                listOfCommand[command].callback(listOfCommand);
+                await listOfCommand[command].callback(state);
             }
             else {
                 console.log("Unknown command");
